@@ -27,11 +27,11 @@ def parse_page(p):
             try:
                 salary = position.find('span',{'data-qa':"vacancy-serp__vacancy-compensation"}).text.split(' ')
                 if len(salary) == 4:
-                    salary_dict = dict((('min',salary[0].replace('\u202f','')),('max',salary[2].replace('\u202f','')),(('valute'),salary[3].replace('\xa0',''))))
+                    salary_dict = dict((('min',int(salary[0].replace('\u202f',''))),('max',int(salary[2].replace('\u202f',''))),(('valute'),salary[3].replace('\xa0',''))))
                 elif len(salary) == 3 and salary[0] =='от':
-                    salary_dict = dict((('min', salary[1].replace('\u202f','')), (('valute'), salary[2].replace('\xa0',''))))
+                    salary_dict = dict((('min', int(salary[1].replace('\u202f',''))), (('valute'), salary[2].replace('\xa0',''))))
                 elif len(salary) == 3 and salary[0] == 'до':
-                    salary_dict = dict((('max', salary[1].replace('\u202f', '')), (('valute'), salary[2].replace('\xa0', ''))))
+                    salary_dict = dict((('max', int(salary[1].replace('\u202f', ''))), (('valute'), salary[2].replace('\xa0', ''))))
             except:
                 salary_dict ={'min', 'зп не задана'}
             list_of_position.append((link,name,salary_dict))
